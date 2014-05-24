@@ -1,0 +1,35 @@
+<h2>Details for box {{ box[0]+1 }}, {{ box[1]+1 }}</h2>
+<table class=details>
+<tr><th>Recording</th><th>Participant</th>{% if dataB %}<th colspan=2>Values{% else %}<th>Value{% endif %}</th>
+</tr>
+{% for r in recordings %}
+<tr>
+<td>{{ r[0] }}</td>
+<td>{{ r[1] }}</td>
+<td>{{ dataA[loop.index-1]|sigfigs|decplaces }}</td>
+{% if dataB %}<td>{{ dataB[loop.index-1]|sigfigs|decplaces }}</td>{% endif %}
+
+</tr>
+{% endfor %}
+{% if statsA %}
+<tr><td></td><th colspan='{% if dataB %}3{% else %}2{% endif %}'>statistics</th></tr>
+<tr>
+<td></td>
+<td>x&#772;:</td>
+<td>{{ statsA[0]|sigfigs }}</td>
+{% if dataB %}<td>{{ statsB[0]|sigfigs }}</td>{% endif %}
+</tr>
+<tr>
+<td></td>
+<td>median</td>
+<td>{{ statsA[1]|sigfigs }}</td>
+{% if dataB %}<td>{{ statsB[1]|sigfigs }}</td>{% endif %}
+</tr>
+<tr>
+<td></td>
+<td>&sigma;</td>
+<td>{{ statsA[2]|sigfigs }}</td>
+{% if dataB %}<td>{{ statsB[2]|sigfigs }}</td>{% endif %}
+</tr>
+{% endif %}
+</table>

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Details for {{ label }}{% endblock %}
+{% block body %}
+
+<h1>Dataset: {{ label }}</h1>
+
+<figure>
+<img src='{{ plot['url'] }}' width='400'/>
+<figcaption>{{ plot['title'] }}</figcaption>
+</figure>
+
+<table>
+{% for i in range(gridy) %}
+{% set outer_loop = loop %}
+<tr>
+<td>
+x&#772;:<br/>
+&sigma;:<br/>
+n:
+</td>
+{% for j in range(gridx) %}
+<td>
+{# array passed as array of columns, and we want to print with bottom
+of each column at the top of the table #}
+
+<a href="{{ url_for('boxDetails', plot=plot['plot'], x=loop.index-1, y=gridy-outer_loop.index) }}">
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][0] }}</a><br/>
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][1] }}<br/>
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][2] }}<br/>
+</td>
+{% endfor %}
+</tr>
+
+{% endfor %}
+</table>
+{% endblock %}

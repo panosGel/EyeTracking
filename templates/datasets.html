@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block title %}Datasets{% endblock %}
+{% block body %}
+<h1>Datasets</h1>
+<div class=section>
+<h2>View datasets</h2>
+
+{#
+<ul>
+    {% for ds in sets %}
+    {% if ds[1]|count == 1 %}
+        <li><a href="{{ url_for('viewDataset', id=ds[1][0]) }}">{{ds[0]}}</a></li>
+     {% else %}
+        <li>Time slices on <a href="{{ url_for('allSlices', id=ds[3]) }}">{{ds[0]}}</a>:
+          <ol>
+          {% for slice in ds[1] %}
+          <li><a href="{{ url_for('viewDataset', id=slice) }}">{{ds[2][loop.index-1]}}</a></li>
+          {% endfor %}
+          </ol>
+        </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+#}
+{% if sets|count > 0 %}
+
+<form action="{{ url_for('modify_datasets') }}" method="POST">
+<table>
+<tr><th>Dataset</th><th>Comments</th><th>Delete</th><th>Compare to</th><th>download</th></tr>
+    {% for ds in sets %}
+    {% if ds[1]|count == 1 %}
+        <tr>
+          <td><a href="{{ url_for('viewDataset', id=ds[1][0]) }}">{{ds[0]}}</a></td>
+          <td><input type='text' name='note{{ ds[1][0] }}' value="{%if ds[3][0] != None %}{{ ds[3][0] }}{% endif %}"/></td>
+          <td><input type='checkbox' name="delete" value="{{ ds[1][0] }}"/></td>
+          <td>{% for s in sets %}
+            {% if ds[1][0] != s[1][0] %}<a href='{{ url_for('compareSets', ida=ds[1][0], idb=s[1][0]) }}' title='{{ s[0] }}'>{{ s[1][0] }}</a>{% endif %}
+            {% endfor %}</td>
+          <td><a href="{{ url_for('static', filename=userdir+ds[0]+".xml") }}">xml</a></td>
+       </tr>
+     {% else %}
+        <tr><td colspan=4>Time slices on <a href="{{ url_for('allSlices', id=ds[4]) }}">{{ds[0]}}</a></td></tr>
+          {% for slice in ds[1] %}
+          <tr>
+            <!-- td>{{ loop.index }} </td -->
+            <td>{{ loop.index }}: <a href="{{ url_for('viewDataset', id=slice) }}">{{ds[2][loop.index-1]}}</a></td>
+            <td><input type='text' name='note{{ slice }}' value="{%if ds[3][loop.index-1] != None %}{{ ds[3][loop.index-1] }}{% endif %}"/></td>
+            <td><input type='checkbox' name="delete" value="{{ slice }}"/></td>
+            <td></td>
+            <td><a href="{{ url_for('static', filename=userdir+ds[2][loop.index-1]+".xml") }}">xml</a></td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+    {% endfor %}
+</table>
+<p><input type='submit' value='save' /></p>
+
+</form>
+
+{#
+</div>
+<div class=section>
+<h2>Compare datasets</h2>
+<form action="{{ url_for('compare') }}" method=post>
+<table>
+<tr>
+  <td></td>
+    {% for set in allsets %}
+    <th>{{set[0]}}</th>
+    {% endfor %}
+</tr>
+
+{% for ds in allsets %}
+{% set outer_loop = loop %}
+
+<tr>
+  <th>{{ ds[0] }}</th>
+  {% for set in allsets %}
+  <td>
+  {% if outer_loop.index != loop.index  %}
+  <input type='radio' name='compare' value='{{ds[1]}}_vs_{{set[1]}}'/>
+  {% endif %}
+  </td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+   
+<p><input type=submit value=Compare></p>
+</form>
+#}
+{% else %}
+<p>You have not created or uploaded any datasets yet.</p>
+{% endif %}
+</div>
+
+<div class=section>
+<h2>Upload datasets</h2>
+<form action="{{ url_for('upload_dataset') }}" method=post enctype=multipart/form-data>
+  <p><input type=file name='file' multiple>
+      <input type=submit value=Upload>
+</form>
+
+</div>
+<div class=section>
+<h2>Create datasets</h2>
+<p><a href="{{ url_for('createDataset') }}">Create a data set...</a></p>
+</div>
+
+{% endblock %}

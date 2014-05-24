@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}About{% endblock %}
+{% block body %}
+<h1>About this tool</h1>
+<p>This is an experimental tool for analysing eye-tracking data.</p>
+<p>It is designed for analysing Tobii data files.  These should be tsv files and should include all data fields.</p>
+<p>Filtering is done by this system.  Currently the settings are fixed, but I hope to change this.</p>
+<p>You upload one or more recordings, then use these to create one or more datasets.  You can then view and compare these datasets.</p>
+
+<p>This tool has been developed by <a href='mailto:andrew.brown@cs.manchester.ac.uk'>Andy Brown</a> in the <a href='http://wel.cs.manchester.ac.uk'>Web Ergonomics Lab</a> at the University of Manchester.  The code is available on <a href='https://bitbucket.org/andyjbrown/eye-tracking-analysis'>Bitbucket</a>; it is liable to change!</p>
+{% endblock %}

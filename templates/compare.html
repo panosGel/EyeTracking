@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block title %}{{ labelA }} vs {{ labelB }}{% endblock %}
+{% block body %}
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  function display(a, b){
+  $.getJSON($SCRIPT_ROOT  + '/_compare_box_details', {
+        x: a,
+        y: b,
+        plot: {{ plot['plot'] }},
+        ida: {{ id[0] }},
+        idb: {{ id[1] }}
+  }, function(data) {
+        $("#result").html(data.result);
+      });
+      return false;
+  }
+
+</script>
+
+
+<div class='section'>
+<h1>Comparison: {{ labelA }} vs {{ labelB }}</h1>
+
+<figure>
+<img src='{{ plot['url'] }}' />
+<figcaption>{{ plot['title'] }}</figcaption>
+</figure>
+</div>
+
+{% if boxes %}
+<div class='section'>
+<h2>Table of results</h2>
+<table class=details>
+{% for i in range(gridy) %}
+{% set outer_loop = loop %}
+<tr>
+<th>{{ gridy - loop.index + 1}}</th>
+<th>
+{{ labelA }}:<br/>
+{{ labelB }}:</span><br/>
+p:</span>
+</th>
+{% for j in range(gridx) %}
+<td><a href='javascript:void(0)' onclick='display({{loop.index-1}},{{gridy - outer_loop.index}});'>
+
+{# array passed as array of columns, and we want to print with bottom
+of each column at the top of the table #}
+
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][0]|sigfigs|decplaces }}<br/>
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][1]|sigfigs|decplaces }}<br/>
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][2]|sigfigs |show_p}}<br/>
+</a></td>
+{% endfor %}
+</tr>
+
+{% endfor %}
+
+<tr style='text-align:center;'>
+<th colspan=2></th>
+{% for j in range(gridx) %}
+<th>{{ loop.index }}</th>
+{% endfor %}
+</tr>
+
+</table>
+</div>
+
+<span id=result></span>
+{% else %}
+<div class='section'>
+<h2>View comparisons on aggregated data</h2>
+<p>
+{% for t in translator %}
+<a href="{{ url_for('compareSetDetails', ida=id[0], idb=id[1], plot=loop.index-1) }}">{{ t }}</a>
+{% if not loop.last %} | {% endif %}
+{% endfor %}
+</p>
+</div>
+{% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,75 @@
+body            { font-family: sans-serif; background: #eee; min-width: 800px; }
+a, h1, h2       { color: #377ba8;}
+
+h1, h2          { font-family: 'Georgia', serif; 
+                  margin: 1em, 0, 1em; 
+                  /* padding-top: 1em; */ }
+
+h1, .section    { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.2em; }
+
+table, td, th   { border:1px solid #377ba8; 
+                  border-collapse:collapse; 
+                  padding: 10px; 
+                  margin-bottom: 2em; }
+
+
+th              { background-color:#377ba8; color:white; border:1px solid #ffffff;}
+
+figure          { border:1px solid #579bc8; padding: 0;}
+figcaption      { background-color:#579bc8; color:white; padding: 0.5em; }
+input           { border:solid 1px #aacfe4; }
+
+.page           { margin: 0, 2em auto; 
+                  /* width: 35em; */ 
+                  border: 5px solid #ccc;
+                  padding: 0.8em; 
+                  padding-top: 0; 
+                  background: white; }
+
+.metanav, .footer { font-size: 0.8em; 
+                  padding: 0.3em;
+                  border: 5px solid #ccc;
+                  margin-bottom: 1em; 
+                  background: #fafafa; }
+
+.footer p       { padding-left: 1em; color: gray; }
+.footer         { margin-top: 1em; }
+
+.flash          { background: #cee5F5; 
+                  padding: 0.5em;
+                  margin-top: 0.5em;
+                  border: 1px solid #aacbe2; }
+
+.error          { background: #f0d6d6; padding: 0.5em; }
+
+.metanav ul     { text-align: right; 
+                  list-style-type: none; 
+                  padding-left: 0.5em; }
+
+.metanav li     { display:inline; padding-right:1em; }
+.header h1      { text-align: left; display:inline; }
+.details        { text-align:right; }
+.details a      { text-decoration:none; color:black; }
+.details td     { min-width: 4em; font-family: courier; }
+.minor          { color: gray; }
+.p95            { color: red; }
+.p90            { color: orange; }
+
+.gridform input { padding: 2px 0.5em;
+                  margin: 0px 5px 0px 10px; }
+
+.gridform label { text-align:right;
+                  display:block;
+                  width:15em;
+                  float:left; }
+
+.aside          { font-size: 0.8em; color: gray; }
+
+.smalltab th    { background-color:#ffffff; 
+                  color:#377ba8; 
+                  text-align: left; 
+                  border:1px solid #377ba8; 
+                } 
+
+.vis            { width:1100px; height:800px; }

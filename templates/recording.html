@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% block body %}
+
+<h1>{{ title }}</h1>
+
+{% for p in plots %}
+<figure>
+<img src='{{ p[0] }}' />
+<figcaption>{{ p[1] }}</figcaption>
+</figure>
+{% endfor %}
+
+<p><a href='../'>View fixation plots for all participants</a></p>
+
+{% endblock %}
+
+

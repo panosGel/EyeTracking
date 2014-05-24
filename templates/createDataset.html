@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Create a new dataset</h1>
+<div class=section>
+<p>A dataset is an aggregation of portions of a group of recordings.  To
+create a dataset, select which recordings should be included.  It is
+then necessary to define which parts of the recordings are used; this
+can be done in 3 ways:</p>
+
+<ol>
+<li><h3>Based on time</h3><p>Specify the start and end times of the
+part of the recording you want to include (e.g. the time a video clip
+started and finished).  Times are in ms, and are relative times (i.e.,
+the start of the recording is 0).  The time fields may be left blank,
+in which case either the start or end of the recording will be
+used.</p></li>
+<li><h3>Based on stimulus name</h3>If the data you wish to view was on
+a particular stimulus, which was named when making the Tobii
+recording, you can enter this name, and only fixations made while this
+stimulus was displayed will be included in the analysis.</p></li>
+<li><h3>Time-sliced</h3><p>This works as time-based, but instead of
+creating a single dataset between the start and end times, the time of
+interest is divided into segments and multiple datasets are created.
+You need to specify the start and end times (leaving blank will
+default to the start and end of the recording), and the length of the
+segments (in ms).</li>
+</ol>
+</div>
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$("#include_all").click(function()				
+			{
+				var checked_status = this.checked;
+				$("input[name=include]").each(function()
+				{
+					this.checked = checked_status;
+				});
+			});					
+		});
+
+// ensure label has been given...
+function isEmpty() {
+  if ($("#labelbox").val() != "") {
+    return true;
+  }
+  $("#labelerror").text("Please enter a name for this dataset!").show().fadeOut(5000);;
+  return false;
+}
+</script>
+
+
+<form action="{{ url_for('createDataset') }}" method=post id='createDS' enctype='multipart/form-data'>
+<div class='section'>
+<h2>Specify a label for the dataset</h2>
+<p><label for='labelbox'>Dataset label: </label><input type=text name='label' id='labelbox'>  <span id='labelerror'></span></p>
+</div>
+
+
+<div class='section'>
+<h2>Select recordings to include</h2>
+<p>Optionally, specify the times outside of which fixations are to be ignored.</p>
+<table>
+<tr><th><input type="checkbox" id="include_all" checked='yes' /> include</th><th>Participant</th><th>Recording</th><th>Start time</th><th>End time</th></tr>
+    {% for rec in recs %}
+      <tr><td><input type='checkbox' name='include' value='{{loop.index}}' checked='yes'></td>
+        <td>{{ rec[1] }}</td>
+        <td>{{ rec[0] }}</td>
+        <td><input type='text' name='start{{loop.index}}'</td>
+        <td><input type='text' name='end{{loop.index}}'</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</div>
+
+<div class='section'>
+<div class='gridform'>
+<h2>Define the analysis parameters</h2>
+<p><label for='error'>Error radius (pixels) </label> <input type='number' min='0' max='500' value='100' name='Errorradius' id='error' /><span class='aside'>1&sigma; for gaussian smoothing of the data</span></p>
+<p><label for='group'>Fixation grouping radius (pixels) </label> <input type='number' min='0' max='500' value='50' name='Groupingradius' id='group' /><span class='aside'>Radius (px) within which consecutive fixations will be grouped</span></p>
+<p><label for='filter'>Minimum fixation time (ms)</label> <input type='number' min='0' max='500' value='100' name='Lengthfilter' id='filter' /><span class='aside'>Fixations with a shorter duration (after grouping) will be ignored.</span></p>
+<p><label for='gridx'>Grid size</label> <input type='number' min='0' max='50' name='Gridwidth' id='gridx' value='10' /> x <input type='number' min='0' max='50' name='Gridheight' id='gridy' value='8' /><span class='aside'>The size of the grid for boxing the data (width x height).</span></p>
+</div>
+</div>
+
+
+<div class='section'>
+<h2>Upload a background image</h2>
+<p>If you wish your results plots to be overlaid on to a representative image, specify the PNG file here.  It should have the same aspect ratio as the screen, so you may need to manipulate the image first to give it a border.</p>
+<p><input type='file' name='image_file'></p>
+
+</div>
+
+
+<div class='section'>
+<h2>Video</h2>
+<p>If this was recorded over a video, upload it here for visualiser</p>
+<p><input type='file' name='video_file'></p>
+<p><input type='text' id="vidoff" value="0" name='videoOffset'><label for="vidoff"> Offset: time (ms) between start of video clip and this dataset</label></p>
+<!-- alternatively, select from already uploaded videos -->
+
+</div>
+
+
+<div class='section'>
+<h2>Create a single dataset by time</h2>
+<p><input type='submit' name='singleDs' value='Create dataset' onclick="return isEmpty();" ></p>
+</div>
+
+<div class='section'>
+<h2>Create a single dataset by stimulus name</h2>
+<p><label for='stimulus'>Stimulus id: </label><input type=text name='stimulus' id='stimulus'></p>
+<p><input type='submit' name='stimulusDs' value='Create dataset' onclick="return isEmpty();"></p>
+</div>
+
+<div class='section'>
+<h2>Time slice into multiple datasets</h2>
+<p>Break the recordings into sections of equal duration, creating one dataset for each segment of time.</p>
+<p><label for='timeslice'>Time slice interval (ms): </label><input type=text name='slicetime' id='timeslice'></p>
+<p><input type='submit' name='timeDs' value='Create time-slice datasets' onclick="return isEmpty();"></p>
+</div>
+
+<div class='section'>
+<h2>Split into multiple datasets</h2>
+<p>Break the recordings into sections of unequal duration, creating one dataset for each segment of time.  The offsets are listed as comma-separated values representing the number of ms after the start time (the value specified above).  For example, a start time of 1382ms, a finish time of 55786ms and offsets of {0, 10000, 15000, 40000} will break the recordings into 4 datasets representing the following segments: 1382-11382ms, 11382-26382ms, 26382ms-41382ms and 41382ms-55786ms.</p>
+<p><label for='sliceoffsets'>Slice offsets (ms): </label><input type=text name='sliceoffsets' id='timeoffsets'></p>
+<p><input type='submit' name='offsetDs' value='Create time-split datasets' onclick="return isEmpty();"></p>
+</div>
+
+</form>
+<!-- p><a href="{{ url_for('upload_file') }}">Add more recordings...</a></p -->
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Login/register{% endblock %}
+{% block body %}
+<h1>Welcome</h1>
+<div class=section>
+<p>It is necessary to log in to use this application, so that you can retrieve your data analyses at a later date.  Please log-in or register as a new user.</p>
+</div>
+<div class=section>
+<h2>Login</h2>
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('login') }}" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text name=username>
+      <dt>Password:
+      <dd><input type=password name=password>
+      <dd><input type=submit value=Login>
+    </dl>
+  </form>
+</div>
+<div class=section>
+<h2>Register as a new user</h2>
+  <form action="{{ url_for('register') }}" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text name=username>
+      <dt>Password:
+      <dd><input type=password name=password>
+      <dd><input type=submit value=Register>
+    </dl>
+  </form>
+</div>
+{% endblock %}

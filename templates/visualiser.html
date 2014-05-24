@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Dataset visualisation: {{ label }}{% endblock %}
+{% block body %}
+<h1>Video visualisation: {{ label }}</h1>
+<iframe src='{{ visurl }}' class='vis' seamless></iframe>
+
+{% endblock %}

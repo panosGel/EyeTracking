@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %} {{ plot['title'] }} data for {{ label }}{% endblock %}
+{% block body %}
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  function display(a, b){
+  $.getJSON($SCRIPT_ROOT  + '/_box_details', {
+        x: a,
+        y: b,
+        plot: {{ plot['plot'] }},
+        id: {{ dsid }}
+  }, function(data) {
+        $("#result").html(data.result);
+      });
+      return false;
+  }
+
+</script>
+
+
+<h1>{{ label }}: {{ plot['title'] }}</h1>
+
+<figure>
+<img src='{{ plot['url'] }}' />
+<figcaption>{{ plot['title'] }}</figcaption>
+</figure>
+
+{% if boxes %}
+<table class=details>
+{% for i in range(gridy) %}
+{% set outer_loop = loop %}
+<tr>
+<th>{{ gridy - loop.index + 1}}</th>
+<th>
+x&#772;:<br/>
+<span class=minor>&sigma;:</span><br/>
+<span class=minor>n:</span>
+</th>
+{% for j in range(gridx) %}
+<td><a href='javascript:void(0)' onclick='display({{loop.index-1}},{{gridy - outer_loop.index}});'>
+{# array passed as array of columns, and we want to print with bottom
+of each column at the top of the table #}
+
+{{ boxes[(loop.index * gridy) - (outer_loop.index)][0]|sigfigs|decplaces }}<br/>
+<span class=minor>{{ boxes[(loop.index * gridy) - (outer_loop.index)][1]|sigfigs|decplaces }}</span><br/>
+<span class=minor>{{ boxes[(loop.index * gridy) - (outer_loop.index)][2] }}</span><br/>
+</a></td>
+{% endfor %}
+</tr>
+
+{% endfor %}
+
+<tr style='text-align:center;'>
+<th colspan=2></th>
+{% for j in range(gridx) %}
+<th>{{ loop.index }}</th>
+{% endfor %}
+</tr>
+
+</table>
+
+<span id=result></span>
+{% endif %}
+
+{% endblock %}
+
+

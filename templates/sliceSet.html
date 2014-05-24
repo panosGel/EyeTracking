@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Time-sliced data for {{ label }}{% endblock %}
+{% block body %}
+<!--
+<title>Time-sliced data for {{ label }}</title>
+-->
+
+<h1>Time-sliced results for {{ label }} dataset</h1>
+
+<h2>Data sets:</h2>
+<ul>
+    {% for ds in sets %}
+    {# data set labels #}
+    <li><a href="{{ url_for('viewDataset', id=ds[0]) }}">{{ds[1]}}</a></li>
+    {% endfor %}
+</ul>
+
+<h2>Graphs</h2>
+
+<h3>View a different variable:</h3>
+
+<p>
+{% for t in translator %}
+<a href="{{ url_for('allSlices', id=setid, plot=loop.index-1) }}">{{ t }}</a>
+{% if not loop.last %} | {% endif %}
+{% endfor %}
+</p>
+
+
+<h3>Results for {{ plot_type }}</h3>
+{% for p in plots %}
+<figure>
+<a href="{{ url_for('showDetails', id=dsid, plot=p['plot']) }}"><img src='{{ p['url'] }}' width='400'/></a>
+<figcaption>{{ p['title'] }}</figcaption>
+</figure>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Upload data{% endblock %}
+{% block body %}
+<h1>Upload files</h1>
+
+<div class=section>
+<h2>Recordings</h2>
+<form action="{{ url_for('upload_file') }} " method=post enctype=multipart/form-data>
+  <p><input type=file name='file' multiple>
+      <input type='checkbox' id='format' name='newformat' />
+      <label for='format'>New format recordings</label>
+      <input type='submit' value='Upload'>
+        
+
+</form>
+</div>
+
+<div class=section>
+<h2>Datasets</h2>
+<form action="{{ url_for('upload_dataset') }}" method=post enctype=multipart/form-data>
+  <p><input type=file name='file' multiple>
+      <input type=submit value=Upload>
+</form>
+</div>
+{% endblock %}
