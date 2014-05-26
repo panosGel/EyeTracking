@@ -15,7 +15,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['IMAGE_FOLDER'] = IMAGE_FOLDER
 app.config['VISUALISER_FOLDER'] = VISUALISER_FOLDER
 app.config['VISUALISER_ROOT'] = VISUALISER_ROOT
-
+app.config['DATABASE'] = DATABASE
 # set the secret key.  keep this really secret:
 app.secret_key = '+\xdc4\xdfr\x90\rV\x8c\xf5\x04\xd1\x93%\xd23e\xd1o\xf0\x93\x8a\xf7\x12'
 
@@ -28,7 +28,7 @@ from contextlib import closing
 
 def init_db():
     with closing(connect_db()) as db:
-        with app.open_resource('schema.sql') as f:
+        with app.open_resource('C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\schema.sql') as f:
             db.cursor().executescript(f.read())
         db.commit()
 
@@ -42,6 +42,7 @@ def teardown_request(exception):
         g.db.close()
 
 def query_db(query, args=(), one=False):
+
     cur = g.db.execute(query, args)
     rv = [dict((cur.description[idx][0], value)
                for idx, value in enumerate(row)) for row in cur.fetchall()]
@@ -51,6 +52,7 @@ def query_db(query, args=(), one=False):
 # #####
 # get login details for user
 def check_user(username):
+
     row = query_db('select * from users where username=?', [username], one=True)
     if row is None:
         return None, None
@@ -1062,5 +1064,6 @@ def getBoxComparisonDetails():
 # #####
 # run the web app
 if __name__ == "__main__":
+
     app.debug = True
     app.run('0.0.0.0', 8080)

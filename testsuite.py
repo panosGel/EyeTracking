@@ -61,7 +61,7 @@ class TestRecording(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.rec = ds.Recording("datafiles/p4.tsv")
+        self.rec = ds.Recording("gaze_data/Rec 01/Rec 01-All-Data.tsv")
         self.studioList = self.rec.getFixationsWithinTimes(6440, 27449)
         self.filteredList = self.rec.filterFixationList(self.studioList, 50, 100)
         startTime = 6440
