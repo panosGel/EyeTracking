@@ -72,7 +72,7 @@ class Analysis:
     # 2 => mean fixation length
     # 3 => fixation frequency
     # 4 => time to first fixation (currently only gives result for first file in list)
-    plot = 1
+    plot = 0
 
 
     # #####

@@ -246,8 +246,12 @@ class DataSet:
             elif self.targetStimulus:
                 fixations = recording.getFixationsOnStimulus(self.targetStimulus)
                 # need to get start and end times for frequency
+                print fixations[0].time
+                print fixations[-1].time
+                print fixations[-1].duration
                 startTime = fixations[0].time
-                endTime = fixations[-1].time + fixations[-1].duration
+                endTime = fixations[-1].time
+                #endTime = int(fixations[-1].time) + int(fixations[-1].duration)
             elif self.targetTimes:
                 if self.targetTimes[filecount][0] is None:
                     startTime = recording.fixationList[0].time
