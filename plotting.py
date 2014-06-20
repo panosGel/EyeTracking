@@ -324,6 +324,23 @@ class Plotter:
     #
     #
     # #####
+    def floatRgb(self,mag, cmin, cmax):
+        """
+        Return a tuple of floats between 0 and 1 for the red, green and
+        blue amplitudes.
+        """
+
+        try:
+            # normalize to [0,1]
+            x = float(mag-cmin)/float(cmax-cmin)
+        except:
+            # cmax = cmin
+            x = 0.5
+        blue = min((max((4*(0.75-x), 0.)), 1.))
+        red  = min((max((4*(x-0.25), 0.)), 1.))
+        green= min((max((4*math.fabs(x-0.5)-1., 0.)), 1.))
+        return (red, green, blue)
+
     def plotParticipantPaths(self,dataset,participant,filename,image=None):
 
         gridx = self.gridx
@@ -332,9 +349,10 @@ class Plotter:
 
 
         # collect data into matrix
+
         paths = dataset.participantList[0].generatePathData(gridx, gridy)
         mat = matrix(paths)
-
+        print mat
         # find max (between boxes) to scale with
         maxval = 0
         for i in range(numBoxes):
@@ -362,6 +380,7 @@ class Plotter:
         same = [[],[],[]]
         # plot an arrow for each path
         ax = plt.axes()
+        ec = 0.01
         for i in range(numBoxes):
             for j in range(numBoxes):
                 xa = i%gridx
@@ -374,7 +393,11 @@ class Plotter:
                     same[1].append(ya)
                     same[2].append(val*150)
                 elif val > 0.1:
-                    ax.arrow(xa, ya, xb-xa, yb-ya, head_width=0.5*val, alpha=(val), width=0.2*val, ec='k', length_includes_head=True)
+                    ec = 0.60 + ec
+                    rgbTuple = self.floatRgb(ec,0,10)
+                    print rgbTuple
+                    ax.arrow(xa, ya, xb-xa, yb-ya, head_width=0.5*val, alpha=(val), width=0.2*val, color=rgbTuple, ec=rgbTuple ,
+                             length_includes_head=True)
 
         # plot within box paths
         scatter(same[0],same[1],s=same[2],alpha=0.4)
@@ -383,3 +406,5 @@ class Plotter:
         ax.get_xaxis().set_visible(False)
         # ax.set_aspect('equal', 'datalim')
         savefig(filename)
+
+

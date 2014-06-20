@@ -376,6 +376,10 @@ class DataSet:
                     outFile.write(str(i) + "\t" + str(j) + "\t" + str(pixdata[i][j][0]) + "\n")
         outFile.close()
 
+    # ######################################
+    #Spot the artwork added code
+    # ######################################
+
                
 # ###############################################
 # A class representing/holding a chunk data from a single data file
