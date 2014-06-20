@@ -221,7 +221,7 @@ class Plotter:
         ax.set_aspect('equal', 'datalim')
         # legend(scatterpoints=1, markerscale=0.5)
         savefig(filename)
-        
+
 
     # #####
     # overlay plots of fixations from two datasets 
@@ -293,6 +293,71 @@ class Plotter:
                 print "no image"
 
         ylim(-0.5, self.gridy-.5) 
+        xlim(-0.5, self.gridx-.5)
+        same = [[],[],[]]
+        # plot an arrow for each path
+        ax = plt.axes()
+        for i in range(numBoxes):
+            for j in range(numBoxes):
+                xa = i%gridx
+                ya = i/gridx
+                xb = j%gridx
+                yb = j/gridx
+                val = mat[i,j]/maxval
+                if xa == xb and ya == yb:
+                    same[0].append(xa)
+                    same[1].append(ya)
+                    same[2].append(val*150)
+                elif val > 0.1:
+                    ax.arrow(xa, ya, xb-xa, yb-ya, head_width=0.5*val, alpha=(val), width=0.2*val, ec='k', length_includes_head=True)
+
+        # plot within box paths
+        scatter(same[0],same[1],s=same[2],alpha=0.4)
+
+        ax.get_yaxis().set_visible(False)
+        ax.get_xaxis().set_visible(False)
+        # ax.set_aspect('equal', 'datalim')
+        savefig(filename)
+
+    # #####
+    # Spot the artwork functions
+    #
+    #
+    # #####
+    def plotParticipantPaths(self,dataset,participant,filename,image=None):
+
+        gridx = self.gridx
+        gridy = self.gridy
+        numBoxes = gridx * gridy
+
+
+        # collect data into matrix
+        paths = dataset.participantList[0].generatePathData(gridx, gridy)
+        mat = matrix(paths)
+
+        # find max (between boxes) to scale with
+        maxval = 0
+        for i in range(numBoxes):
+            for j in range(numBoxes):
+                if i != j:
+                    if mat[i,j] > maxval:
+                        maxval = mat[i,j]
+        print "Max = " + str(maxval)
+
+        # plot
+        figure()
+
+        #if image is None:
+        #    image = "/home/wel/andy/eye-tracking-analysis/4-news.png"
+
+        if image is not None:
+            try:
+                im = imread(image)
+                imshow(im, alpha=0.5, extent=[-0.5,self.gridx-.5,-0.5,self.gridy-.5])
+            except IOError:
+                print "no image"
+
+        ylim(-0.5, self.gridy-.5)
         xlim(-0.5, self.gridx-.5)
         same = [[],[],[]]
         # plot an arrow for each path

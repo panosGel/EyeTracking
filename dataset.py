@@ -10,6 +10,7 @@ import scipy.ndimage as scim
 import math
 import gc, os, sys, traceback
 import json
+import pickle
 # import sys
 import xml.etree.ElementTree as ET
 
@@ -245,13 +246,15 @@ class DataSet:
                 endTime = 0
             elif self.targetStimulus:
                 fixations = recording.getFixationsOnStimulus(self.targetStimulus)
+                print self.targetStimulus
                 # need to get start and end times for frequency
-                print fixations[0].time
-                print fixations[-1].time
-                print fixations[-1].duration
+                #print fixations[0].time
+                #print fixations[-1].time
+                #print fixations[-1].duration
                 startTime = fixations[0].time
-                endTime = fixations[-1].time
-                #endTime = int(fixations[-1].time) + int(fixations[-1].duration)
+                #endTime = fixations[-1].time
+                #fix the part for the last fixation !
+                endTime = int(fixations[-1].time) + 100
             elif self.targetTimes:
                 if self.targetTimes[filecount][0] is None:
                     startTime = recording.fixationList[0].time
@@ -1044,12 +1047,15 @@ class Fixation:
 
     # #####
     # create a new Fixation from an XML element
+    # Spot the artwork : fixed the part where there was a NoType in the xml
     @staticmethod
     def createFromXml(node):
+
+
         t = int(node.find('time').text)
         x = int(node.find('x').text)
         y = int(node.find('y').text)
-        d = int(node.find('duration').text)
+        d = int(0 if node.get('duration') is None else node.find('duration').text)
         n = node.find('stimulusName').text
         return Fixation(t, x, y, d, n)
 
