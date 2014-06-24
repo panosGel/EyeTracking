@@ -2,5 +2,6 @@ DATASET_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\d
 IMAGE_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\imageFolder'
 ALLOWED_EXTENSIONS = set(['tsv', 'xml'])
 DATABASE = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\database\\flask.db'
-VISUALISER_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\visualiserFolder\\'
+VISUALIZER_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\visualizerFolder\\'
 GAZE_DATA = "C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\gazeData\\"
+PARTICIPANTS_FOLDER = 'C:\\Users\\panos\\PycharmProjects\eyeTracking\eyeTracking\\visualizerFolder\\participantsVisualizations\\'

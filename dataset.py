@@ -379,6 +379,10 @@ class DataSet:
     # ######################################
     #Spot the artwork added code
     # ######################################
+    def getParticipant(self,participantNum):
+        for participant in self.participantList:
+            if participant.number == participantNum:
+                return participant
 
                
 # ###############################################

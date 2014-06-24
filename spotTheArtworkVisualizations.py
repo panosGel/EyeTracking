@@ -18,69 +18,91 @@ imageNames = os.listdir(IMAGE_FOLDER)
 print imageNames
 # specify the analysis parameters
 parameters = {
-        'gridWidth': 10,                  # the grid size: set to None for dynamic calcluation
+        'gridWidth': 20,                  # the grid size: set to None for dynamic calcluation
         'gridHeight': None,                # the grid size: set to None for square shaped boxes
         'errorRadius': 10,                 # error smoothing sigma (pixels)
         'groupingRadius': 50,              # filtering radius (pixels)
         'fixationLengthFilter': 100        # minimum fixation length
         }
-def createImageDatasets():
+def createImageDataset(imageName):
 
-    for image in imageNames:
-        analysisObject = analysis.Analysis(parameters)
-        analysisObject.outputPath = DATASET_FOLDER
-        imageDataset = analysisObject.buildDataSetForStimulus(image,recordings,image,GAZE_DATA)
-        analysisObject.getGridSize(imageDataset)
-        analysisObject.analyseDataSet(imageDataset)
-        imageDataset.saveToFile(image)
+    analysisObject = analysis.Analysis(parameters)
+    analysisObject.outputPath = DATASET_FOLDER
+    imageDataset = analysisObject.buildDataSetForStimulus(imageName,recordings,imageName,GAZE_DATA)
+    analysisObject.getGridSize(imageDataset)
+    analysisObject.analyseDataSet(imageDataset)
+    #imageDataset.saveToFile(image)
+    return imageDataset
 
-
-
-def visualizeGazePlots():
+imageDataset = createImageDataset("1917.170med_resized.jpg")
+def visualizeGazePlots(imageName):
 
     analysisOb = analysis.Analysis(parameters)
     analysisOb.datasets = DATASET_FOLDER
 
-    imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+"1917.170med_resized.jpg.data")
-    imageDataset = analysisOb.buildDataSetForStimulus("1917.170med_resized.jpg",recordings,"1917.170med_resized.jpg",GAZE_DATA)
-    analysisOb.getGridSize(imageDataset)
-    analysisOb.analyseDataSet(imageDataset)
-
+    #imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+imageName)
+    #imageDataset = analysisOb.buildDataSetForStimulus(imageName,recordings,imageName,GAZE_DATA)
+    #analysisOb.getGridSize(imageDataset)
+    #analysisOb.analyseDataSet(imageDataset)
+    #imageDataset = createImageDataset(imageName)
     plotterOb = analysisOb.getPlotter()
     for participant in imageDataset.participantList:
-        plotterOb.plotFixations([participant],VISUALISER_FOLDER+imageNames[0]+"_"+participant.number+"_gazeplot.png",
-                                VISUALISER_FOLDER+"1917.170med_resized.png")
-
+        pngFile = imageName.replace(".jpg",".png",-3)
+        plotterOb.plotFixations([participant],VISUALIZER_FOLDER+imageNames[0]+"_"+participant.number+"_FixationsPlot.png",
+                                VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotPaths(imageDataset,VISUALIZER_FOLDER+"all_participants_gazePlot",VISUALIZER_FOLDER+pngFile)
 
     #plotterOb.plotPaths(imageDataset,imageNames[0]+"_pathPlot.png",VISUALISER_FOLDER+"\\"+"1917.170med_resized.png")
     #plotterOb.plotDataSet(imageDataset, 1, 0.6, label="1917.170med_resized.png", outfile="1917.170med_resized_heatmap.png")
 
 
-def visualizeHeatmaps():
+def visualizeHeatmaps(imageName):
 
     analysisOb = analysis.Analysis(parameters)
     analysisOb.datasets = DATASET_FOLDER
-    imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+"1917.170med_resized.jpg.data")
-    imageDataset = analysisOb.buildDataSetForStimulus("1917.170med_resized.jpg",recordings,"1917.170med_resized.jpg",GAZE_DATA)
-    analysisOb.getGridSize(imageDataset)
-    analysisOb.analyseDataSet(imageDataset)
+    #imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+1917.170med_resized.jpg.data)
+    #imageDataset = analysisOb.buildDataSetForStimulus(imageName,recordings,imageName,GAZE_DATA)
+    #analysisOb.getGridSize(imageDataset)
+    #analysisOb.analyseDataSet(imageDataset)
+    #imageDataset = createImageDataset(imageName)
     plotterOb = analysisOb.getPlotter()
-    plotterOb.plotDataSet(imageDataset,3,1.6,"beach",VISUALISER_FOLDER+"heatmap",VISUALISER_FOLDER+"1917.170med_resized.png")
+    pngFile = imageName.replace(".jpg",".png",-3)
+    # 0 => plot fixation counts
+    # 1 => fixation duration
+    # 2 => mean fixation length
+    # 3 => fixation frequency
+    # 4 => time to first fixation (currently only gives result for first file in list)
+    plotterOb.plotDataSet(imageDataset,0,1.4,"Fixation counts heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationCountsHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,1,0.4,"Fixation duration heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationDurationHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,2,0.4,"Mean fixation length heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"MeanFixationLengthHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,3,0.15,"Fixation frequency heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationFrequencyHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,3,0.15,"Time to first fixation heatmap for"+pngFile,VISUALIZER_FOLDER+pngFile+"firstFixationTimeHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
 
-def visualizeParticipantGazePlot(participantNum):
+def visualizeParticipantsGazePlots(imageName,ParticipantNumber):
     analysisOb = analysis.Analysis(parameters)
     analysisOb.datasets = DATASET_FOLDER
-    imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+"1917.170med_resized.jpg.data")
-    imageDataset = analysisOb.buildDataSetForStimulus("1917.170med_resized.jpg",recordings,"1917.170med_resized.jpg",GAZE_DATA)
-    analysisOb.getGridSize(imageDataset)
-    analysisOb.analyseDataSet(imageDataset)
+
     plotterOb = analysisOb.getPlotter()
+    pngFile = imageName.replace(".jpg",".png",-3)
+    plotterOb.plotParticipantPaths(imageDataset,ParticipantNumber,VISUALIZER_FOLDER+ParticipantNumber+"_gazeplot",VISUALIZER_FOLDER+pngFile)
 
-    plotterOb.plotParticipantPaths(imageDataset,"P0",VISUALISER_FOLDER+"Pname"+"_gazeplot",VISUALISER_FOLDER+"1917.170med_resized.png",)
+
+def visualizeArbitraryAOI(imageName):
+    analysisOb = analysis.Analysis(parameters)
+    analysisOb.datasets = DATASET_FOLDER
+
+    plotterOb = analysisOb.getPlotter()
+    pngFile = imageName.replace(".jpg",".png",-3)
+    plotterOb.plotArbitraryAOI(VISUALIZER_FOLDER+"_ArbitraryAOI",VISUALIZER_FOLDER+pngFile)
 
 
-#createImageDatasets()
-
-visualizeGazePlots()
-visualizeHeatmaps()
-visualizeParticipantGazePlot(1)
+#visualizeGazePlots("1917.170med_resized.jpg")
+visualizeArbitraryAOI("1917.170med_resized.jpg")
+visualizeHeatmaps("1917.170med_resized.jpg")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","andy")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P0")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P1")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P2")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P3")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P4")
+visualizeParticipantsGazePlots("1917.170med_resized.jpg","P5")
