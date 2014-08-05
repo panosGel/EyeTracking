@@ -9,7 +9,7 @@ from os import path
 
 
 file = open(STATS_FOLDER+"demData.tsv")
-fem_part = []
+_part = []
 male_part = []
 try:
     reader = csv.reader(file,delimiter='\t')
@@ -25,6 +25,16 @@ try:
             FEMALE_PARTICIPANTS.append(recordingFile)
         elif row[13] == "Male" :
             MALE_PARTICIPANTS.append(recordingFile)
+        #add recording to proper age group dataset
+
+        if row[14] == 1:
+            AGEGROUP_1_PARTICIPANTS.append(recordingFile)
+        elif row[14] == 2:
+            AGEGROUP_2_PARTICIPANTS.append(recordingFile)
+        elif row[14] == 3:
+            AGEGROUP_3_PARTICIPANTS.append(recordingFile)
+        elif row[14] == 4:
+            AGEGROUP_3_PARTICIPANTS.append(recordingFile)
 
 
 finally:
