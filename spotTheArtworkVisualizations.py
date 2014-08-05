@@ -12,8 +12,11 @@ import fnmatch
 from ini import *
 
 
+
 recordings = os.listdir(GAZE_DATA)
 print recordings
+print len(FEMALE_PARTICIPANTS)
+print len(MALE_PARTICIPANTS)
 imageNames = os.listdir(IMAGE_FOLDER)
 print imageNames
 # specify the analysis parameters
@@ -35,16 +38,13 @@ def createImageDataset(imageName):
     return imageDataset
 
 imageDataset = createImageDataset("1917.170med_resized.jpg")
+
 def visualizeGazePlots(imageName):
 
     analysisOb = analysis.Analysis(parameters)
     analysisOb.datasets = DATASET_FOLDER
 
-    #imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+imageName)
-    #imageDataset = analysisOb.buildDataSetForStimulus(imageName,recordings,imageName,GAZE_DATA)
-    #analysisOb.getGridSize(imageDataset)
-    #analysisOb.analyseDataSet(imageDataset)
-    #imageDataset = createImageDataset(imageName)
+
     plotterOb = analysisOb.getPlotter()
     for participant in imageDataset.participantList:
         pngFile = imageName.replace(".jpg",".png",-3)
@@ -52,19 +52,14 @@ def visualizeGazePlots(imageName):
                                 VISUALIZER_FOLDER+pngFile)
     plotterOb.plotPaths(imageDataset,VISUALIZER_FOLDER+"all_participants_gazePlot",VISUALIZER_FOLDER+pngFile)
 
-    #plotterOb.plotPaths(imageDataset,imageNames[0]+"_pathPlot.png",VISUALISER_FOLDER+"\\"+"1917.170med_resized.png")
-    #plotterOb.plotDataSet(imageDataset, 1, 0.6, label="1917.170med_resized.png", outfile="1917.170med_resized_heatmap.png")
+
 
 
 def visualizeHeatmaps(imageName):
 
     analysisOb = analysis.Analysis(parameters)
     analysisOb.datasets = DATASET_FOLDER
-    #imageDataset = ds.DataSet.loadFromFile(DATASET_FOLDER+1917.170med_resized.jpg.data)
-    #imageDataset = analysisOb.buildDataSetForStimulus(imageName,recordings,imageName,GAZE_DATA)
-    #analysisOb.getGridSize(imageDataset)
-    #analysisOb.analyseDataSet(imageDataset)
-    #imageDataset = createImageDataset(imageName)
+
     plotterOb = analysisOb.getPlotter()
     pngFile = imageName.replace(".jpg",".png",-3)
     # 0 => plot fixation counts
@@ -77,6 +72,20 @@ def visualizeHeatmaps(imageName):
     plotterOb.plotDataSet(imageDataset,2,0.4,"Mean fixation length heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"MeanFixationLengthHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
     plotterOb.plotDataSet(imageDataset,3,0.15,"Fixation frequency heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationFrequencyHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
     plotterOb.plotDataSet(imageDataset,3,0.15,"Time to first fixation heatmap for"+pngFile,VISUALIZER_FOLDER+pngFile+"firstFixationTimeHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+
+def visualizeHeatmapsByGender(imageName):
+
+    analysisOb = analysis.Analysis(parameters)
+    analysisOb.datasets = DATASET_FOLDER
+
+    plotterOb = analysisOb.getPlotter()
+    pngFile = imageName.replace(".jpg",".png",-3)
+    # 0 => plot fixation counts
+    # 1 => fixation duration
+    # 2 => mean fixation length
+    # 3 => fixation frequency
+    # 4 => time to first fixation (currently only gives result for first file in list)
+
 
 def visualizeParticipantsGazePlots(imageName,ParticipantNumber):
     analysisOb = analysis.Analysis(parameters)

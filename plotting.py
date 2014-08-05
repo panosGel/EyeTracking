@@ -1,4 +1,4 @@
-from matplotlib.patches import Ellipse
+
 import numpy
 import scipy.stats.stats as st
 import scipy.stats as stats
@@ -359,6 +359,7 @@ class Plotter:
 
         # collect data into matrix
         paths = dataset.getParticipant(participantNum).generatePathData(gridx,gridy)
+
         #paths = dataset.participantList[0].generatePathData(gridx, gridy)
         mat = matrix(paths)
         #print mat
@@ -419,8 +420,7 @@ class Plotter:
 
     def plotArbitraryAOI(self,filename,image=None):
 
-        fig=figure()
-        ax = plt.axes()
+        fig = figure()
         if image is not None:
             try:
                 im = imread(image)
@@ -429,7 +429,5 @@ class Plotter:
                 print "no image"
 
 
-        el = Ellipse(40,500,150,43.0)
-        ax.plot(el)
 
         savefig(filename)
