@@ -1,0 +1,67 @@
+02'	1	2	1	1	2	3	3	3	1	3	1	1	Female	2	no	quite interested
+03'	1	2	3	1	1	3	2	1	1	3	1	2	Male	3	no	quite interested
+04'	1	3	1	2	2	3	3	2	2	2	2	1	Male	4	no	quite interested
+05'	3	3	3	3	3	3	3	3	3	3	3	3	Female	4	no	very interested
+06'	3	3	1	1	3	3	3	3	3	3	1	3	Female	5	Difficulty between distinguishing black and dark blue	very interested
+07'	3	3	3	3	3	3	3	3	2	3	3	3	Female	4	no	very interested
+08'	1	3	3	1	3	3	2	3	1	3	3	3	Female	4	no	quite interested
+09'	2	3	3	3	3	3	3	3	3	2	2	3	Male	5	no	quite interested
+10'	3	3	3	3	3	3	3	3	2	3	3	3	Male	3	no	very interested
+11'	2	3	3	3	3	3	3	3	3	3	3	3	Female	4	no	very interested
+12'	3	3	3	3	3	3	3	3	3	3	3	3	Male	5	no	very interested
+13'	2	3	3	1	3	3	3	3	2	3	2	3	Female	4	no	very interested
+14'	3	3	3	3	3	3	3	3	3	3	3	3	Male	2	no	very interested
+15'	3	3	3	3	1	3	3	3	3	3	3	3	Female	5	slight colour blindness	quite interested
+16'	3	3	3	3	3	1	3	3	3	3	3	3	Male	5	no	very interested
+17'	1	2	2	1	2	3	2	1	1	3	2	1	Male	1	no	quite interested
+18'	1	1	3	1	1	3	2	3	2	1	1	1	Male	1	no	quite interested
+19'	3	3	3	3	3	3	3	3	3	3	3	3	Female	5	no	very interested
+20'	2	3	2	2	3	3	3	3	3	3	1	1	Female	4	no	quite interested
+21'	3	3	1	3	3	3	2	3	1	2	3	2	Female	3	no	quite interested
+22'	1	3	3	1	3	3	3	3	1	3	3	3	Female	4	no	very interested
+23'	1	1	1	1	1	1	1	1	2	1	1	1	Female	3	no	quite interested
+24'	1	3	3	2	3	3	3	2	2	3	3	2	Male	4	no	very interested
+25'	3	3	3	3	3	3	3	3	2	3	3	3	Female	3	no	very interested
+26'	1	3	3	1	3	3	3	3	2	3	3	3	Female	5	no	very interested (10 out of 10)
+27'	2	3	2	2	3	3	3	3	2	3	3	2	Female	3	no	very interested
+29'	1	1	1	1	1	2	1	1	2	1	1	1	Male	3	no	moderate interest not much time to dedicate
+30'	1	1	1	1	3	3	3	3	2	3	1	3	Female	5	no	quite interested
+31'	1	1	1	1	1	2	2	1	1	1	1	1	Female	3	no	quite interested
+32'	1	2	2	1	1	2	2	1	2	2	2	2	Female	4		quite interested
+33'	1	2	2	1	1	3	2	1	1	1	2	1	Male	5		quite interested
+34'	1	1	1	1	1	1	1	1	1	1	1	2	Female	5		very interested
+35'	1	1	1	1	1	1	2	1	2	1	1	1	Female	5		moderate interest
+36'	1	1	1	1	1	1	1	1	1	1	1	1	Female	5		very interested
+37'	1	1	1	1	1	1	1	1	1	1	1	1	Male	1		quite interested
+38'	1	2	2	1	1	2	1	1	1	1	2	2	Male	5		quite interested
+39'	1	2	2	1	1	3	2	1	1	2	1	2	Male	4		very interested
+41'	1	1	1	1	1	1	1	1	1	1	1	1	Female	5		very interested
+42'	1	1	2	1	1	2	1	1	2	2	1	1	Male	5		not very interested
+43'	1	1	1	1	1	1	1	1	1	1	1	1	Female	3		very interested
+44'	1	2	1	1	1	2	3	1	2	1	1	2	Male	5		no answer
+45'	1	1	1	1	1	2	2	2	1	1	1	1	Female	5		no answer
+46'	1	1	1	1	1	1	2	1	1	1	1	1	Male	5		not very interested
+47'	1	2	1	1	1	3	2	1	2	2	1	2	Female	2		very interested
+48'	1	1	1	1	2	1	1	2	3	1	1	1	Female	1		not very interested
+49'	1	2	1	1	1	2	1	2	1	1	1	1	Female	4		not very interested
+51'	1	1	1	1	1	2	3	1	2	1	1	2	Male	5		very interested
+52'	2	1	1	2	2	1	1	2	1	1	1	1	Female	2		not very interested
+53'	1	1	1	1	1	2	2	1	1	2	3	2	Female	5		strong interest
+54'	1	2	1	1	1	3	1	1	2	2	1	2	Female	5		very interested
+55'	1	1	1	1	1	1	2	1	2	1	1	1	Female	3		moderate interest
+56'	3	2	1	3	1	2	3	1	3	3	1	3	Female	5		quite interested
+57'	1	1	1	1	1	1	2	1	2	2	1	1	Male	4		moderate interest
+58'	1	1	1	1	1	1	2	1	2	2	1	1	Female	5		moderate interest
+59'	1	1	1	1	1	2	1	1	1	1	1	1	Female	5		not very interested
+60'	1	1	1	1	2	1	2	2	2	1	1	1	Female	2		quite interested
+61'	1	1	1	1	1	1	1	1	1	1	1	1	Female	3		no answer
+62'	2	3	1	1	2	3	1	2	3	3	3	3	Male	5		very interested
+63'	3	3	3	2	3	3	3	3	3	3	3	3	Female	5		quite interested
+64'	1	1	1	1	1	1	2	1	2	1	1	1	Male	2		not very interested
+65'	1	1	2	2	1	1	3	1	2	2	2	2	Female	2		very interested
+66'	1	3	3	2	1	3	3	2	3	3	2	1	Male	5		not very interested
+67'	1	1	1	1	1	2	2	1	2	1	1	1	Male	3		not very interested
+68'	1	1	1	1	1	3	2	1	1	2	1	2	Male	5		quite interested
+69'	1	1	2	1	1	1	2	1	1	1	2	2	Female	5		moderate interest
+70'	1	3	1	2	1	2	2	1	2	1	2	1	Male	3		quite interested
+71'	1	1	1	1	1	3	3	1	1	1	3	3	Male	2		quite interested
