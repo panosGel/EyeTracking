@@ -22,9 +22,9 @@
 23'	1	1	1	1	1	1	1	1	2	1	1	1	Female	3	no	quite interested
 24'	1	3	3	2	3	3	3	2	2	3	3	2	Male	4	no	very interested
 25'	3	3	3	3	3	3	3	3	2	3	3	3	Female	3	no	very interested
-26'	1	3	3	1	3	3	3	3	2	3	3	3	Female	5	no	very interested (10 out of 10)
+26'	1	3	3	1	3	3	3	3	2	3	3	3	Female	5	no	very interested
 27'	2	3	2	2	3	3	3	3	2	3	3	2	Female	3	no	very interested
-29'	1	1	1	1	1	2	1	1	2	1	1	1	Male	3	no	moderate interest not much time to dedicate
+29'	1	1	1	1	1	2	1	1	2	1	1	1	Male	3	no	moderate interest
 30'	1	1	1	1	3	3	3	3	2	3	1	3	Female	5	no	quite interested
 31'	1	1	1	1	1	2	2	1	1	1	1	1	Female	3	no	quite interested
 32'	1	2	2	1	1	2	2	1	2	2	2	2	Female	4		quite interested
@@ -46,7 +46,7 @@
 49'	1	2	1	1	1	2	1	2	1	1	1	1	Female	4		not very interested
 51'	1	1	1	1	1	2	3	1	2	1	1	2	Male	5		very interested
 52'	2	1	1	2	2	1	1	2	1	1	1	1	Female	2		not very interested
-53'	1	1	1	1	1	2	2	1	1	2	3	2	Female	5		strong interest
+53'	1	1	1	1	1	2	2	1	1	2	3	2	Female	5		very interested
 54'	1	2	1	1	1	3	1	1	2	2	1	2	Female	5		very interested
 55'	1	1	1	1	1	1	2	1	2	1	1	1	Female	3		moderate interest
 56'	3	2	1	3	1	2	3	1	3	3	1	3	Female	5		quite interested
