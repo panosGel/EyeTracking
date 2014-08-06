@@ -15,8 +15,7 @@ from ini import *
 
 recordings = os.listdir(GAZE_DATA)
 print recordings
-print len(FEMALE_PARTICIPANTS)
-print len(MALE_PARTICIPANTS)
+
 imageNames = os.listdir(IMAGE_FOLDER)
 print imageNames
 # specify the analysis parameters
