@@ -384,6 +384,7 @@ class DataSet:
             if participant.number == participantNum:
                 return participant
 
+
                
 # ###############################################
 # A class representing/holding a chunk data from a single data file
@@ -431,6 +432,7 @@ class Participant:
                 durations[fix.x/speed][fix.y/speed] += fix.duration
 
         # smooth
+
         counts = scim.filters.gaussian_filter(counts, filterRadius)
         durations = scim.filters.gaussian_filter(durations, filterRadius)
 
@@ -712,7 +714,10 @@ class Participant:
         outFile = open(filename, 'w')
         outFile.write(json.dumps(all))
         outFile.close()
-                         
+
+    def getStartAndEndTimes(self):
+
+        return self.startTime, self.endTime
         
 # ###############################################
 # The fixations from a single data file

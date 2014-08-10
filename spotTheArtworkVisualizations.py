@@ -37,7 +37,7 @@ def createImageDataset(imageName):
     return imageDataset
 
 imageDataset = createImageDataset("1917.170med_resized.jpg")
-
+imageDataset
 def visualizeGazePlots(imageName):
 
     analysisOb = analysis.Analysis(parameters)
@@ -105,12 +105,13 @@ def visualizeArbitraryAOI(imageName):
 
 
 #visualizeGazePlots("1917.170med_resized.jpg")
-visualizeArbitraryAOI("1917.170med_resized.jpg")
+#visualizeArbitraryAOI("1917.170med_resized.jpg")
 visualizeHeatmaps("1917.170med_resized.jpg")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","andy")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P0")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P1")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P2")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P3")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P4")
-visualizeParticipantsGazePlots("1917.170med_resized.jpg","P5")
+
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","andy")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P0")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P1")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P2")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P3")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P4")
+#visualizeParticipantsGazePlots("1917.170med_resized.jpg","P5")

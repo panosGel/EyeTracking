@@ -57,6 +57,15 @@ class Plotter:
                  label = ds.label
 
         aggregateData, offScreen = ds.getAggregateData()
+        #Spot the artwork : print box data to check inconsistencies
+
+        #for box in aggregateData:
+            #box number 10 for all participants
+        #    print box[10].getResult(0)
+
+        #    print len(box)
+        #    print len(box[10].getResult(0))
+
         # print offScreen
         plotData = self.generatePlotArray(aggregateData, plot, len(ds.dataFiles))
 
@@ -71,24 +80,32 @@ class Plotter:
         resultArray = numpy.empty((self.gridy, self.gridx))
         #Spot the artwork : changed from nan to zeros
         resultArray[:] = numpy.nan
+
         for i in range(self.gridx):
             for j in range(self.gridy):
                 box = boxArray[i][j]
                 count = box.count
                 try:
                     count = sum(count)
+
+
                 except:
                     print "count exception"
                     pass
-                if count > sampleSize/4:  # only plot if averaged at least one fixation per participant
+                if count > sampleSize:  # only plot if averaged at least one fixation per participant
+                    # Compute the mean over the given axis ignoring nans.
                     z = st.nanmean(box.getResult(plot))
                     resultArray[j][i] = z
+
+        #Spot the artwork : print array to check inconsistencies
+        #print resultArray
         return resultArray
 
     # #####
     # create a plot using matplotlib
     # expects data as [[x,y,val], [x,y,val],...]
     def writePlot(self, myData, plot_title, zMax, fileName, image=None):
+        plt.close('all')
         print "Plotting to " + fileName
 
         figure()
@@ -124,6 +141,7 @@ class Plotter:
         ax.get_xaxis().set_visible(False)
         # ax.set_aspect('equal', 'datalim')
         # save to file
+
         savefig(fileName)
 
 
@@ -233,6 +251,7 @@ class Plotter:
     # overlay plots of fixations from two datasets
     # dsA plotted in green, dsB in blue
     def plotFixationComparison(self, dsA, dsB, filename):
+        plt.close('all')
         xs = []
         ys = []
         durs = []
@@ -260,8 +279,8 @@ class Plotter:
         ylim(0,1024)
         axes().set_aspect('equal', 'datalim')
         legend(scatterpoints=1, markerscale=0.5)
-        savefig(self.outputPath + filename)
-
+        #savefig(self.outputPath + filename)
+        savefig(filename)
 
     # #####
     # generate a plot showing the gaze paths between boxes for a dataset

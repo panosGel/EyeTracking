@@ -3,6 +3,7 @@ IMAGE_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\ima
 ALLOWED_EXTENSIONS = set(['tsv', 'xml'])
 DATABASE = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\database\\flask.db'
 VISUALIZER_FOLDER = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\visualizerFolder\\'
+VISUALIZER_FOLDER_FAMILIARITY = 'C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\visualizerFolder\\familiarityResults'
 GAZE_DATA = "C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\gazeData\\"
 STATS_FOLDER = "C:\\Users\\panos\\PycharmProjects\\eyeTracking\\eyeTracking\\viewerStatistics\\"
 
