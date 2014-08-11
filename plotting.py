@@ -92,10 +92,13 @@ class Plotter:
                 except:
                     print "count exception"
                     pass
-                if count > sampleSize:  # only plot if averaged at least one fixation per participant
+                if count > sampleSize/4 :  # only plot if averaged at least one fixation per participant
                     # Compute the mean over the given axis ignoring nans.
                     z = st.nanmean(box.getResult(plot))
                     resultArray[j][i] = z
+        print "Min :" + str(numpy.nanmin(resultArray)) + " Box index : " + str(numpy.nanargmin(resultArray))
+        print "Max :" + str(numpy.nanmax(resultArray)) + " Box index : " + str(numpy.nanargmax(resultArray))
+        print "Mean:" + str(numpy.nanmean(resultArray))
 
         #Spot the artwork : print array to check inconsistencies
         #print resultArray

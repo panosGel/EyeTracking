@@ -478,11 +478,13 @@ class Participant:
         boxHeight = int(screen.height/gridY)+1
 
         dimensions = numpy.dsplit(pixelData,2)
+
         counts = dimensions[0]
         durations = dimensions[1]
         i = 0; j = 0
         for col in numpy.array_split(counts, gridY, 1):
             for cell in numpy.array_split(col, gridX, 0):
+
                 boxes[i][j].count =  sum(sum(cell))[0]
                 i += 1
             j+=1; i = 0

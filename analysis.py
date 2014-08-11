@@ -328,7 +328,7 @@ class Analysis:
     # compare two datasets on a given value
     # returns boolean, dictionary
     # boolean is true if any box shows difference more significant than sig (default 0.05)
-    def generateMplotStats(self, dataSetA, dataSetB, plot, pairwise=False, sig=0.05):
+    def generateMplotStats(self, dataSetA, dataSetB, plot, pairwise=False, sig=0.001):
         # catch warnings - eg we may not have enough samples for wilcoxon test
         warnings.filterwarnings("error")
         aggregateDataA, offScreen = dataSetA.getAggregateData()
@@ -345,7 +345,7 @@ class Analysis:
                 setA = aggregateDataA[i][j].getResult(plot)
                 setB = aggregateDataB[i][j].getResult(plot)
                 # only compare if mean counts of both are greater than one 
-                if st.nanmean(aggregateDataA[i][j].getResult(0)) > 1 or st.nanmean(aggregateDataB[i][j].getResult(0)) > 1:
+                if st.nanmean(aggregateDataA[i][j].getResult(0)) > 0.5 or st.nanmean(aggregateDataB[i][j].getResult(0)) > 0.5:
                     try:
                         if pairwise:
                             wilcoxon_t, p = stats.wilcoxon(setA, setB)

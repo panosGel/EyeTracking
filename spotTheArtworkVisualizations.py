@@ -68,9 +68,9 @@ def visualizeHeatmaps(imageName):
     # 4 => time to first fixation (currently only gives result for first file in list)
     plotterOb.plotDataSet(imageDataset,0,1.4,"Fixation counts heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationCountsHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
     plotterOb.plotDataSet(imageDataset,1,0.4,"Fixation duration heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationDurationHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
-    plotterOb.plotDataSet(imageDataset,2,0.4,"Mean fixation length heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"MeanFixationLengthHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,2,0.4,"Mean fixation duration heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"MeanFixationLengthHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
     plotterOb.plotDataSet(imageDataset,3,0.15,"Fixation frequency heatmap for " +pngFile,VISUALIZER_FOLDER+pngFile+"fixationFrequencyHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
-    plotterOb.plotDataSet(imageDataset,3,0.15,"Time to first fixation heatmap for"+pngFile,VISUALIZER_FOLDER+pngFile+"firstFixationTimeHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotDataSet(imageDataset,4,0.15,"Time to first fixation heatmap for"+pngFile,VISUALIZER_FOLDER+pngFile+"firstFixationTimeHeatmap"+".png",VISUALIZER_FOLDER+pngFile)
 
 def visualizeHeatmapsByGender(imageName):
 
