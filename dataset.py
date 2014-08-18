@@ -531,6 +531,7 @@ class Participant:
 
         self.boxes = boxes
         self.offScreen = offScreen
+
         return self.boxes, offScreen
 
     # #####

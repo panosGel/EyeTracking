@@ -69,8 +69,8 @@ class Plotter:
         # print offScreen
         plotData = self.generatePlotArray(aggregateData, plot, len(ds.dataFiles))
 
-        self.writePlot(plotData, label, zmax, outfile, image)
-        return outfile
+        self.writePlot(plotData[0], label, zmax, outfile, image)
+        return outfile , plotData[1]
 
 
     # #####
@@ -80,7 +80,7 @@ class Plotter:
         resultArray = numpy.empty((self.gridy, self.gridx))
         #Spot the artwork : changed from nan to zeros
         resultArray[:] = numpy.nan
-
+        means=[]
         for i in range(self.gridx):
             for j in range(self.gridy):
                 box = boxArray[i][j]
@@ -96,13 +96,22 @@ class Plotter:
                     # Compute the mean over the given axis ignoring nans.
                     z = st.nanmean(box.getResult(plot))
                     resultArray[j][i] = z
+                    means.append(z)
+        resultArrayStatistics = {}
+        resultArrayStatistics.update({"Minimum value":str(numpy.nanmin(resultArray))})
+        resultArrayStatistics.update({"Max value":str(numpy.nanmax(resultArray))})
+        resultArrayStatistics.update({"Mean value":str(numpy.nanmean(resultArray))})
+        resultArrayStatistics.update({"Std":str(numpy.nanstd(means))})
         print "Min :" + str(numpy.nanmin(resultArray)) + " Box index : " + str(numpy.nanargmin(resultArray))
         print "Max :" + str(numpy.nanmax(resultArray)) + " Box index : " + str(numpy.nanargmax(resultArray))
+
         print "Mean:" + str(numpy.nanmean(resultArray))
+        print "Standard deviation" + str(numpy.nanstd(means))
+        print "Area of interest size : " + str(np.count_nonzero(~np.isnan(resultArray))) + " " + str(size(resultArray))
 
         #Spot the artwork : print array to check inconsistencies
         #print resultArray
-        return resultArray
+        return resultArray, resultArrayStatistics
 
     # #####
     # create a plot using matplotlib
@@ -146,7 +155,7 @@ class Plotter:
         # save to file
 
         savefig(fileName)
-
+        plt.close('all')
 
     # #####
     # plot the stats comparison using matplotlib
@@ -158,10 +167,10 @@ class Plotter:
     # stats in form: {'x': x coords, 'y': y coords: 's' size, 'p': pval }
     # size represents size and direction of the difference
     # generate using Analysis.generateMplotStats()
-    def plotComparisonStats(self, data, plot, plot_title, filename):
+    def plotComparisonStats(self, data, plot, plot_title,image, filename):
 
-        filepath = self.outputPath + filename
-
+        filepath = filename
+        plt.close('all')
         # first extract arrays to plot 90 and 95% confidence markers
         p95s = ([],[]) # ([xvalues][yvalues])
         p90s = ([],[])
@@ -177,6 +186,13 @@ class Plotter:
 
         # now do the plotting
         figure()
+
+        if image is not None:
+            try:
+                im = imread(image)
+                imshow(im, alpha=0.5, extent=[-0.5,self.gridx-.5,-0.5,self.gridy-.5])
+            except IOError:
+                print "no image " + image
 
         # set axis limits - puts plot right way up
         ylim(-0.5, self.gridy-0.5)
@@ -197,6 +213,7 @@ class Plotter:
         ax.get_xaxis().set_visible(False)
         axes().set_aspect('equal', 'datalim')
         savefig(filepath)
+        close('all')
         return filename
 
 
@@ -251,6 +268,43 @@ class Plotter:
 
 
     # #####
+    # -------Spot the artwork--------------
+    # plot min and max values in the stimuli
+    # #####
+    def plotPeaks(self,dataset,filename,image,minIndex,maxIndex,minValue,maxValue):
+        plt.close('all')
+        alpha = 0.1
+        min_xs = minIndex[0]
+        min_ys = minIndex[1]
+        max_xs = maxIndex[0]
+        max_ys = maxIndex[1]
+
+        i = 1
+        figure()
+
+        #if image is None:
+        #    image = "/home/wel/andy/eye-tracking-analysis/4-news.png"
+
+        if image is not None:
+            try:
+                im = imread(image)
+                imshow(im, alpha=0.5, extent=[0,1280,0,1024])
+            except IOError:
+                print "no image"
+        #plot min peak
+        scatter(min_xs,min_ys,s=minValue,c='b',alpha=alpha,label=minValue)
+        #plot max peak
+        scatter(max_xs,max_ys,s=maxValue,c='r',alpha=alpha,label=maxValue)
+
+        xlim(0,1280)
+        ylim(0,1024)
+        ax = axes()
+        ax.get_yaxis().set_visible(False)
+        ax.get_xaxis().set_visible(False)
+        ax.set_aspect('equal', 'datalim')
+        # legend(scatterpoints=1, markerscale=0.5)
+        savefig(filename)
+
     # overlay plots of fixations from two datasets
     # dsA plotted in green, dsB in blue
     def plotFixationComparison(self, dsA, dsB, filename):
@@ -345,6 +399,7 @@ class Plotter:
         # plot within box paths
         scatter(same[0],same[1],s=same[2],alpha=0.4)
 
+
         ax.get_yaxis().set_visible(False)
         ax.get_xaxis().set_visible(False)
         # ax.set_aspect('equal', 'datalim')
@@ -426,7 +481,7 @@ class Plotter:
                     same[2].append(val*150)
                 elif val > 0.1:
                     rgbTuple = self.floatRgb(ec,0,1)
-                    ec = 0.04 + ec
+                    ec = (0.04 + ec)
                     #print rgbTuple
                     ax.arrow(xa, ya, xb-xa, yb-ya, head_width=0.5*val, alpha=(val), width=0.2*val, color=rgbTuple, ec=rgbTuple ,
                              length_includes_head=True)
@@ -434,22 +489,9 @@ class Plotter:
 
         # plot within box paths
         scatter(same[0],same[1],s=same[2],alpha=0.4)
-
+        title(participantNum)
         ax.get_yaxis().set_visible(False)
         ax.get_xaxis().set_visible(False)
         # ax.set_aspect('equal', 'datalim')
         savefig(filename)
 
-    def plotArbitraryAOI(self,filename,image=None):
-
-        fig = figure()
-        if image is not None:
-            try:
-                im = imread(image)
-                imshow(im, alpha=0.5, extent=[-0.5,self.gridx-.5,-0.5,self.gridy-.5])
-            except IOError:
-                print "no image"
-
-
-
-        savefig(filename)

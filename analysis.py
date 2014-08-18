@@ -124,38 +124,13 @@ class Analysis:
         count_array = numpy.dsplit(pix,2)[0]
         gridSep = grids.calculateGridSize(count_array, 3, 100, 5, 1.7)
         print "Grid width should be " + str(screen.width/gridSep) + " boxes"
-        return gridSep
+        return gridSep, (screen.width/gridSep)
     # #####
     # Spot the arwork : create datasets for each time slice, which has
     # a duration of 100ms
     # #####
-    def generateSlicedDatasets(self,label,dataFiles,sliceLength,inputFilePath=""):
 
-        #get all the recordings
-        recordings = []
-        for inputFile in dataFiles:
-            rec = data.Recording(inputFile, filepath=inputFilePath)
-            recordings.append(rec)
-        datasets=[]
 
-        #create the dataset for the particular stimulus
-        #and get the start time and the end time
-        stimulusDataset = self.buildDataSetForStimulus(label,dataFiles,label,inputFilePath)
-        #for each participant, get start time and end time for the stimulus
-        for p in stimulusDataset.participantList:
-            timesArray = []
-            startAndEnd = p.getStartAndEndTimes()
-            #now that we have start and end times, create the array for the slices
-            arraySize = (startAndEnd[1] - startAndEnd[0])/sliceLength
-            currentSlice = startAndEnd[0]
-            for i in range(0,arraySize):
-                nextSlice = currentSlice+sliceLength
-                timesArray.append([currentSlice,nextSlice])
-                currentSlice = nextSlice
-
-            ds = self.buildDataSet(label,dataFiles,timesArray,inputFilePath)
-
-        return datasets
     # #####
     # split the raw fixation data into time-slices of specified (equal) size, then
     # analyse, etc., and create a new dataset per time slice
@@ -328,7 +303,7 @@ class Analysis:
     # compare two datasets on a given value
     # returns boolean, dictionary
     # boolean is true if any box shows difference more significant than sig (default 0.05)
-    def generateMplotStats(self, dataSetA, dataSetB, plot, pairwise=False, sig=0.001):
+    def generateMplotStats(self, dataSetA, dataSetB, plot, pairwise=False, sig=0.05):
         # catch warnings - eg we may not have enough samples for wilcoxon test
         warnings.filterwarnings("error")
         aggregateDataA, offScreen = dataSetA.getAggregateData()
