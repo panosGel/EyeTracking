@@ -9,10 +9,10 @@ paintingsDictionary = div.divide_datasets()
 
 def gender_plot():
 
-    N = 1
+    N = 2
     menNum = (len(MALE_PARTICIPANTS))
     womenNum = (len(FEMALE_PARTICIPANTS))
-
+    index=np.arange(N)
 
     width = 0.35
 
@@ -21,8 +21,10 @@ def gender_plot():
     men_rectangle = ax.bar(0, menNum, width, color='r',align='center')
     women_rectangle = ax.bar(width,womenNum,width,color='y',align='center')
 
+
     ax.set_ylabel('Viewers')
     ax.set_title('Viewers by gender')
+    plt.xticks(index+0.5, ('Male','Female'))
     plt.show()
 
 def agegroups_plot():
@@ -47,19 +49,19 @@ def interest_plot():
     int1 = plt.bar(index+margin+(1*width), interest1, width,
                  alpha=opacity,
                  color='b',
-                 label="Very interested")
+                 label="Interest Group 1 : Very interested")
     int2 = plt.bar(index+margin+(2*width), interest2, width,
                  alpha=opacity,
                  color='r',
-                 label="Quite interested")
+                 label="Interest Group 2 : Quite interested")
     int3 = plt.bar(index+margin+(3*width), interest3, width,
                  alpha=opacity,
                  color='y',
-                 label="Moderate interest")
+                 label="Interest Group 3 : Moderate interest")
     int4 = plt.bar(index+margin+(4*width), interest4, width,
                  alpha=opacity,
                  color='g',
-                 label="Not very interested")
+                 label="Interest Group 4 :Not very interested")
     plt.xlabel('Interest in art')
     plt.ylabel('Viewers')
     plt.title("Interest of Viewers in art")
@@ -89,20 +91,21 @@ def paintingsFamiliarityPlots():
     fam1 = plt.bar(index+margin+(1*width), familiarity1, width,
                  alpha=opacity,
                  color='b',
-                 label="I don\'t recall ever seeing this artwork before")
+                 label="Familiarity Group 1 : I don\'t recall ever seeing this artwork before")
+    plt.text
     fam2 = plt.bar(index+margin+(2*width),familiarity2,width,
                  alpha=opacity,
                  color='r',
-                 label="I have seen this artwork once or twice before")
+                 label="Familiarity Group 2 : I have seen this artwork once or twice before")
     fam3 = plt.bar(index+margin+(3*width),familiarity3,width,
                  alpha=opacity,
                  color='y',
-                 label="I have seen this artwork many times before")
+                 label="Familiarity Group 3 : I have seen this artwork many times before")
 
 
     plt.xlabel('Paintings')
     plt.ylabel('Viewers')
-    plt.title("Familiarity with each painting")
+    plt.title("Familiarity with painting")
     plt.xticks(index+0.5, ('Cheviot \nFarm',"Now for\n the painter","Konigstein","Women and\n suspended man","14.06.1964",
                                "Cheetah and\n two indians",
                                "Flask walk","Release","Self portrait","Evening glows","Rhyl Sands","Sir Gregory"))
@@ -112,5 +115,4 @@ def paintingsFamiliarityPlots():
     plt.show()
 
 
-
-
+gender_plot()

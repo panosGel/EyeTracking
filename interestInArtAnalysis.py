@@ -80,18 +80,17 @@ def visualizeHeatmaps(imageName,imageDataset,group):
                           VISUALIZER_FOLDER+resultFolder+"_firstFixationTimeHeatmap_"+group +".png",VISUALIZER_FOLDER+pngFile)
 
 
+ds_1 = createImageDataset("1917.170med_resized.jpg",INTEREST_GROUP_1_VERY_INTERESTED,"interestGroup1")
+ds_2 = createImageDataset("1917.170med_resized.jpg",INTEREST_GROUP_2_QUITE_INTERESTED,"interestGroup2")
+ds_3 = createImageDataset("1917.170med_resized.jpg",INTEREST_GROUP_3_MODERATE_INTEREST,"interestGroup3")
+ds_4 = createImageDataset("1917.170med_resized.jpg",INTEREST_GROUP_4_NOT_VERY_INTERESTED,"interestGroup4")
 
-ds_1 = createImageDataset("1934.394med_resized.jpg",INTEREST_GROUP_1_VERY_INTERESTED,"interestGroup1")
-ds_2 = createImageDataset("1934.394med_resized.jpg",INTEREST_GROUP_2_QUITE_INTERESTED,"interestGroup2")
-ds_3 = createImageDataset("1934.394med_resized.jpg",INTEREST_GROUP_3_MODERATE_INTEREST,"interestGroup3")
-ds_4 = createImageDataset("1934.394med_resized.jpg",INTEREST_GROUP_4_NOT_VERY_INTERESTED,"interestGroup4")
-
-getBoxDifferences("1934.394med_resized.jpg",ds_1,ds_2,"groups1_2")
-getBoxDifferences("1934.394med_resized.jpg",ds_1,ds_3,"groups1_3")
-getBoxDifferences("1934.394med_resized.jpg",ds_1,ds_4,"groups1_4")
-getBoxDifferences("1934.394med_resized.jpg",ds_2,ds_3,"groups2_3")
-getBoxDifferences("1934.394med_resized.jpg",ds_2,ds_4,"groups2_4")
-getBoxDifferences("1934.394med_resized.jpg",ds_3,ds_4,"groups3_4")
+getBoxDifferences("1917.170med_resized.jpg",ds_1,ds_2,"groups1_2")
+getBoxDifferences("1917.170med_resized.jpg",ds_1,ds_3,"groups1_3")
+getBoxDifferences("1917.170med_resized.jpg",ds_1,ds_4,"groups1_4")
+getBoxDifferences("1917.170med_resized.jpg",ds_2,ds_3,"groups2_3")
+getBoxDifferences("1917.170med_resized.jpg",ds_2,ds_4,"groups2_4")
+getBoxDifferences("1917.170med_resized.jpg",ds_3,ds_4,"groups3_4")
 
 
 

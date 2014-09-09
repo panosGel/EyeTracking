@@ -56,8 +56,8 @@ def visualizeFamiliarityResults(imageName,parameters):
     fixationCountDiff_1_2 = analysisOb.generateMplotStats(datasets[0],datasets[1],0)
     fixationMeanDurationDiff_1_2 = analysisOb.generateMplotStats(datasets[0],datasets[1],2)
     resultFile = open(VISUALIZER_FOLDER+resultFolder+pngFile+".txt",'a')
-    resultFile.write("Fixation counts difference results for groups : "+compDatasets+str(fixationCountDifferenceDict)+"\n")
-    resultFile.write("Fixation length difference results : "+compDatasets+str(fixationMeanDurationDifferenceDict)+"\n")
+    resultFile.write("Fixation counts difference results for groups : "+"1 and 2"+str(fixationCountDiff_1_2)+"\n")
+    resultFile.write("Fixation mean duration difference results : "+"1 and 2"+str(fixationMeanDurationDiff_1_2)+"\n")
     resultFile.close()
 
     plotterOb.plotComparisonStats(fixationCountDiff_1_2[1],0,"Groups 1 & 2",VISUALIZER_FOLDER+pngFile,
@@ -72,9 +72,18 @@ def visualizeFamiliarityResults(imageName,parameters):
                                   famResultFolder+"fixCountDiff_1_3.png")
     plotterOb.plotComparisonStats(fixationMeanDurationDiff_1_3[1],0,"Groups 1 & 3",VISUALIZER_FOLDER+pngFile,
                                   famResultFolder+"fixMeanDur_1_3.png")
+    resultFile = open(VISUALIZER_FOLDER+resultFolder+pngFile+".txt",'a')
+    resultFile.write("Fixation counts difference results for groups : "+"1 and 3"+str(fixationCountDiff_1_3)+"\n")
+    resultFile.write("Fixation mean duration difference results : "+"1 and 3"+str(fixationMeanDurationDiff_1_3)+"\n")
+    resultFile.close()
 
     fixationCountDiff_2_3 = analysisOb.generateMplotStats(datasets[1],datasets[2],0)
     fixationMeanDurationDiff_2_3 = analysisOb.generateMplotStats(datasets[1],datasets[2],2)
+    resultFile = open(VISUALIZER_FOLDER+resultFolder+pngFile+".txt",'a')
+    resultFile.write("Fixation counts difference results for groups : "+"2 and 3"+str(fixationCountDiff_2_3)+"\n")
+    resultFile.write("Fixation mean duration difference results : "+"2 and 3"+str(fixationMeanDurationDiff_2_3)+"\n")
+    resultFile.close()
+
     plotterOb.plotComparisonStats(fixationCountDiff_2_3[1],0,"Groups 2 & 3",VISUALIZER_FOLDER+pngFile,
                                   famResultFolder+"fixCountDiff_2_3.png")
     plotterOb.plotComparisonStats(fixationMeanDurationDiff_2_3[1],0,"Groups 2 & 3",VISUALIZER_FOLDER+pngFile,
@@ -85,4 +94,4 @@ def visualizeFamiliarityResults(imageName,parameters):
 #for image in imageNames:
 #    createImageDatasets(image)
 
-visualizeFamiliarityResults("1934.394med_resized.jpg",parameters)
+visualizeFamiliarityResults("1917.170med_resized.jpg",parameters)

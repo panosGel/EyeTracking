@@ -92,7 +92,7 @@ class Plotter:
                 except:
                     print "count exception"
                     pass
-                if count > sampleSize/4 :  # only plot if averaged at least one fixation per participant
+                if count > sampleSize / 4 :  # only plot if averaged at least one fixation per participant
                     # Compute the mean over the given axis ignoring nans.
                     z = st.nanmean(box.getResult(plot))
                     resultArray[j][i] = z
@@ -129,10 +129,11 @@ class Plotter:
             try:
                 im = imread(image)
                 imshow(im, alpha=0.5, extent=[-0.5,self.gridx-.5,-0.5,self.gridy-.5])
+                #imshow(im, alpha=0.5,aspect='auto', extent='none')
             except IOError:
                 print "no image " + image
 
-        imshow(myData, interpolation='spline36', alpha=0.7)
+        imshow(myData, interpolation='spline36', alpha=0.9)
         colorbar(shrink=0.8,aspect=10) # adds scale for colour map, shrunk slightly
         grid(True)
         title(plot_title) # adds title

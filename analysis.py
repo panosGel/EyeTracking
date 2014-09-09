@@ -313,6 +313,7 @@ class Analysis:
         yvalues = []
         sizes = []
         pvals = []
+        differenceNum=0
         # get x, y magnitude of difference between sets, and significance
         for j in range(self.params['gridHeight']):
             for i in range(self.params['gridWidth']):
@@ -345,8 +346,9 @@ class Analysis:
                     # print str(i) + " " + str(j) + " " + str(p)
                     if p < sig:
                         differenceFound = True
+                        differenceNum+=1
            
-        return differenceFound, {'x': xvalues, 'y':yvalues, 's':sizes, 'p':pvals}
+        return differenceFound, {'x': xvalues, 'y':yvalues, 's':sizes, 'p':pvals} , differenceNum
 
 
     # #####

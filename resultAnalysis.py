@@ -14,7 +14,7 @@ imageNames = os.listdir(IMAGE_FOLDER)
 
 #default parameters for the analysis object
 parameters = {
-        'gridWidth': 21,                  # the grid size: set to None for dynamic calcluation
+        'gridWidth': 20,                  # the grid size: set to None for dynamic calcluation
         'gridHeight': None,                # the grid size: set to None for square shaped boxes
         'errorRadius': 5,                 # error smoothing sigma (pixels)
         'groupingRadius': 50,              # filtering radius (pixels)
@@ -32,7 +32,7 @@ def createImageDataset(imageName,eyeTrackingRecordings,datasetLabel):
     gridSize = analysisObject.getGridSize(imageDataset)
 
     newParameters = {
-        'gridWidth': gridSize[1],                  # the grid size: set to None for dynamic calcluation
+        'gridWidth': 20,                  # the grid size: set to None for dynamic calcluation
         'gridHeight': None,                # the grid size: set to None for square shaped boxes
         'errorRadius': 5,                 # error smoothing sigma (pixels)
         'groupingRadius': 50,              # filtering radius (pixels)
@@ -100,6 +100,8 @@ def visualizeRandomGazeplots(imageName,imageDataset):
         plotterOb.plotParticipantPaths(imageDataset,num
                                        ,VISUALIZER_FOLDER+resultFolder+'\\'+num+"_gazeplot"
                                        ,VISUALIZER_FOLDER+pngFile)
+    plotterOb.plotPaths(imageDataset,VISUALIZER_FOLDER+resultFolder+'\\'+"allParticipantsGazeplot",
+                        VISUALIZER_FOLDER+pngFile)
 
 
 
@@ -109,8 +111,8 @@ def visualizeRandomGazeplots(imageName,imageDataset):
 
 #paintingsDict = datasetDivision.divide_datasets()
 
-imageDataset = createImageDataset("1934.394med_resized.jpg",recordings,"allParticipants")
+imageDataset = createImageDataset("1934.2med.JPG",recordings,"allParticipants")
 
 
-visualizeHeatmaps("1934.394med_resized.jpg",imageDataset)
-visualizeRandomGazeplots("1934.394med_resized.jpg",imageDataset)
+visualizeHeatmaps("1934.2med.JPG",imageDataset)
+visualizeRandomGazeplots("1934.2med.JPG",imageDataset)
